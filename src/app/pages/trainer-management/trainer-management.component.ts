@@ -201,6 +201,7 @@ export class TrainerManagementComponent {
       },
       traineeDTO: {
         joinedOn: new Date().toISOString(),
+        password: user.password,
         batchId: parseInt(user.batchid, 10)
       },
       batchIds: []
