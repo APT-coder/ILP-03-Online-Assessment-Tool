@@ -191,6 +191,7 @@ export class AccountcreationModalComponent implements OnChanges, OnInit {
           roleId: this.selectedRoleId
         } : null,
         traineeDTO: userData.usertype === 'Trainee' ? {
+          password: userData.password,
           joinedOn: new Date(userData.joiningDate).toISOString(),
           batchId: this.traineeBatch
         } : null,

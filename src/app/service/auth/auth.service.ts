@@ -23,7 +23,7 @@ export class AuthService {
   }
 
   externalTrainerLogin(loginRequest: any): Observable<any> {
-    const url = `${this.authApiUrl}/ExternalTrainerLogin`;
+    const url = `${this.authApiUrl}/ExternalUserLogin`;
     return this.http.post<any>(url, loginRequest);
   }
 

@@ -92,6 +92,11 @@
 
     <ng-container *ngIf="userForm.get('usertype')?.value === 'Trainee'">
       <div class="form-group mb-3">
+        <label for="password" class="font-semibold">Password</label>
+        <input pPassword id="password" class="input-text" formControlName="password" />
+      </div>
+      
+      <div class="form-group mb-3">
         <label for="batch" class="font-semibold">Batch</label>
         <p-dropdown class="p-dropdown" [options]="batches" formControlName="batch" placeholder="Select a batch" (onChange)="OnBatchSelect($event)"></p-dropdown>
         <div *ngIf="userForm.get('batch')?.touched && userForm.get('batch')?.invalid" class="error-message">
