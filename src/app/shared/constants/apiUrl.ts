@@ -1,1 +1,1 @@
-export const apiUrl = `http://172.16.4.89:80`
+export const apiUrl = `https://online-assessment-tool-backend.onrender.com`
