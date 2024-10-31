@@ -22,7 +22,7 @@ export class ReminderComponent {
 
   @Input() assessments: any;
   searchValue: string | undefined;
-
+  sortOrder: number = -1;
 
 
   clear(table: Table) {
@@ -40,35 +40,47 @@ export class ReminderComponent {
   user = JSON.parse(localStorage.getItem('userDetails') as string);
   
   onRowClicked(assessmentId: number, assessment:any) {
-      this.api.checkAttended(this.user.TraineeId , assessmentId).subscribe((response) =>{
-        console.log(response.result.exists);
-        if(response.result.exists){
-          this.openSnackBar();
-        }else{
-          
-          const navigationExtras: NavigationExtras = {
-            state: {
-              data: assessment
-            }
-          };
+    const currentDateTime = new Date();
+    const assessmentStartTime = new Date(assessment.startTime);
 
-          this.router.navigate(['/instructions', assessmentId],navigationExtras);
-        }
-      })
+    const isStartTimeEqual = currentDateTime.getTime() >= assessmentStartTime.getTime();
 
+    if (!isStartTimeEqual) {
+        this.openSnackBar("StartTimeNotEqual");
+        return;
+    }
+
+    this.api.checkAttended(this.user.TraineeId , assessmentId).subscribe((response) =>{
+      console.log(response.result.exists);
+      if(response.result.exists){
+        this.openSnackBar("AlreadyAttended");
+      }else{
+        
+        const navigationExtras: NavigationExtras = {
+          state: {
+            data: assessment
+          }
+        };
+
+        this.router.navigate(['/instructions', assessment.assessmentId],navigationExtras);
+      }
+    })
   }
 
-
-
-  openSnackBar(): void {
-    this.snackBar.open('You have already completed the assessment.', 'Close', {
-      duration: 3000,
-      verticalPosition: 'top', // 'top' or 'bottom'
-      horizontalPosition: 'center', // 'start', 'center', 'end', 'left', 'right'
-    });
+  openSnackBar(val: string): void {
+    if(val === "StartTimeNotEqual"){
+      this.snackBar.open('Assessment cannot be started before scheduled start time !', 'Close', {
+        duration: 3000,
+        verticalPosition: 'top',
+        horizontalPosition: 'center',
+      });
+    }
+    else{
+      this.snackBar.open('You have already completed the assessment.', 'Close', {
+        duration: 3000,
+        verticalPosition: 'top',
+        horizontalPosition: 'center',
+      });
+    }
   }
-
-
-  
-
 }

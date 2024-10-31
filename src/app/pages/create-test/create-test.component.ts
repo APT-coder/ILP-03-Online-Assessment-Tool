@@ -46,6 +46,7 @@ interface Option {
 export class CreateTestComponent implements OnInit {
   user = JSON.parse(localStorage.getItem('userDetails') as string);
   @ViewChild(ScheduleComponent) scheduleComponent!: ScheduleComponent;
+  @ViewChild(QuestionBankComponent) questionBankComponent!: QuestionBankComponent;
   activeStep: number = 0; 
   
   selectedCardIndex: number | null = null;
@@ -93,7 +94,12 @@ export class CreateTestComponent implements OnInit {
   }
 
   goToNextStep() {
-    this.activeStep++;
+    if(this.activeStep === 1 && this.selectedCardIndex === 2 && !this.fileUploaded){
+      this.questionBankComponent.onNextClick();
+    }
+    else{
+      this.activeStep++;
+    }
   }
 
   goToPreviousStep() {
@@ -143,7 +149,7 @@ export class CreateTestComponent implements OnInit {
       this.messageService.add({ severity: 'error', summary: 'Upload Failed', detail: 'File format not supported', life: 5000 });
     }
     else if(message === "Download Success"){
-      this.messageService.add({ severity: 'success', summary: 'Download Success', detail: 'Template Downloaded successfully', life: 5000 });
+      this.messageService.add({ severity: 'info', summary: 'Download Started', detail: 'Template Downloaded started', life: 5000 });
     }
     else if(message === "Empty Set"){
       this.messageService.add({ severity: 'error', summary: 'No Questions selected', detail: 'Select atleast one question to proceed', life: 5000 });

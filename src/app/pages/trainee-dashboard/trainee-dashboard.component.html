@@ -3,12 +3,20 @@
     <div class="table-component">
         <h1 class="learner-welcome"> Hi, {{firstname}}</h1>
 
+        <p-selectButton 
+        [options]="stateOptions" 
+        [(ngModel)]="value" 
+        optionLabel="label" 
+        optionValue="value"
+        class="select-toggle"/>
+
         @if(scheduled){
-            @if (isScheduled) {
+            @if (isScheduled && value === "upcoming") {
                 <app-reminder [assessments]="scheduled"></app-reminder>
+                <h5 class="warning">{{warning}}</h5>
             }
            
-            @else {
+            @else if(value === "completed"){
                 <app-attended-tests></app-attended-tests>
             }
         }

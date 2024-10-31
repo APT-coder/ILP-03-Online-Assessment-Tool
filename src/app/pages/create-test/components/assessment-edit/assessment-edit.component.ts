@@ -88,4 +88,17 @@ export class AssessmentEditComponent {
   trackByFn(index: number, item: any): any {
     return index;
   }
+
+  removeOption(questionIndex: number, optionIndex: number) {
+    const question = this.questions[questionIndex];
+    const optionValue = question.options![optionIndex];
+  
+    const correctAnswerIndex = question.correctAnswer.indexOf(optionValue);
+    if (correctAnswerIndex > -1) {
+      question.correctAnswer.splice(correctAnswerIndex, 1);
+    }
+  
+    question.options?.splice(optionIndex, 1);
+    this.questionsChange.emit(this.questions);
+  }  
 }

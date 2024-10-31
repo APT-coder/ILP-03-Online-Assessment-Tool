@@ -61,28 +61,20 @@
                     </a>
                   </li>
                 </ng-container>
-                <ng-container *ngIf="user.UserType === 2">
+                <!-- <ng-container *ngIf="user.UserType === 2">
                   <li>
                     <a pRipple (click)="changeIsSchedule(true)" class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple" >
-<!--                     <a pRipple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple" 
-                       routerLink="/create-test" 
-                       routerLinkActive="active-link" 
-                       [routerLinkActiveOptions]="{exact: true}"> -->
                       <i class="pi pi-plus mr-2"></i>
                       <span class="font-medium" *ngIf="!sidebarCollapsed">Scheduled Tests</span>
                     </a>
                   </li>
                   <li>
                     <a pRipple (click)="changeIsSchedule(false)" class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple" >
-<!--                     <a pRipple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple" 
-                       routerLink="/upload-assessment" 
-                       routerLinkActive="active-link" 
-                       [routerLinkActiveOptions]="{exact: true}"> -->
                       <i class="pi pi-upload mr-2"></i>
                       <span class="font-medium" *ngIf="!sidebarCollapsed">Attended Tests</span>
                     </a>
                   </li>
-                </ng-container>
+                </ng-container> -->
                 <!-- More items as needed -->
               </ul>
             </li>

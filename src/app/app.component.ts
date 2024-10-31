@@ -16,11 +16,7 @@ import { AuthInterceptor } from './core/interceptors/auth.interceptor';
     ]
 })
 export class AppComponent {
-  title = 'Online-Assessment-Tool-Frontend';
+  title = 'Knowlix';
 
   constructor() { }
-
-  ngOnInit(): void {
-    console.log("test");
-  }
 }

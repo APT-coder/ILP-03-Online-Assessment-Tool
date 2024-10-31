@@ -139,16 +139,15 @@ background-color: white;
  justify-content: center;
 
 }
-/* Scale down the radio button */
-.custom-radio {
-  transform: scale(0.4); /* Adjust the scale factor as needed */
-  -webkit-transform: scale(0.4); /* For Safari */
-}
 
 .form-mcq
 {
   position: relative;
   top: 12px;
+}
+
+.form-check, .form-check-input{
+  padding: 0 !important;
 }
 
 .mcq-add-option{

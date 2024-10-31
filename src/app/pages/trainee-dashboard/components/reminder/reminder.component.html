@@ -1,13 +1,19 @@
 <div class="table-page">
   <div class="table-responsive grow">
-    <h3 class="upcoming">Upcoming</h3>
+    <!-- <h3 class="upcoming">Upcoming</h3> -->
     <div class="card box-shadow">
       <!-- <div class="p-grid p-fluid">
         <div class="p-col-12 p-md-4">
           <input pInputText type="text" (input)="filterTable($event, dt1)" placeholder="Search by assessment name" />
         </div>
       </div> -->
-      <p-table #dt1 [value]="assessments | scheduled" [tableStyle]="{ 'min-width': '50rem' }">
+      <p-table #dt1 [value]="assessments | scheduled" [tableStyle]="{ 'min-width': '50rem' }"
+      [rows]="5"
+      [rowsPerPageOptions]="[5, 10, 20]"
+      [paginator]="true"
+      sortField="startTime"
+      [sortOrder]="sortOrder"
+      >
         <ng-template pTemplate="header">
           <tr>
             <th>Assessment</th>
@@ -18,7 +24,7 @@
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-assessment >
-          <tr (click)="onRowClicked(assessment.assessmentId, assessment)">
+          <tr (click)="onRowClicked(assessment.scheduledAssessmentId, assessment)">
             <td>{{ assessment.assessmentName }}</td>
             <td>{{ assessment.startDate |utcToIst| date: 'dd-MM-yyyy' }}</td>
             <td>{{ assessment.startTime |utcToIst| date: 'shortTime' }}</td>

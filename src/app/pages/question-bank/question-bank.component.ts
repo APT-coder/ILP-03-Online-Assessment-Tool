@@ -48,6 +48,7 @@ export class QuestionBankComponent implements OnInit {
   faPen = faPen;
   selectedAssessments!: AssessmentOverview[];
   expandedAssessmentIds: Set<number> = new Set();
+  fetchedAssessmentIds: Set<number> = new Set();
   assessmentDetails: { [key: number]: any } = {};
   selectedQuestions: Question[] = [];
   showPreview: boolean = false;
@@ -79,7 +80,8 @@ export class QuestionBankComponent implements OnInit {
   toggleRoleExpansion(assessmentId: number): void {
     if (this.expandedAssessmentIds.has(assessmentId)) {
       this.expandedAssessmentIds.delete(assessmentId);
-    } else {
+    }
+    else {
       this.fetchAssessmentDetails(assessmentId);
     }
   }
@@ -89,11 +91,18 @@ export class QuestionBankComponent implements OnInit {
       (response: any) => {
         if (response.isSuccess) {
           console.log(response.result);
-          this.assessmentDetails[assessmentId] = response.result;
-          if(this.assessmentDetails[assessmentId].questions.length === 0){
-            this.message.emit("No Questions");
+          if(this.fetchedAssessmentIds.has(assessmentId)){
+            this.expandedAssessmentIds.add(assessmentId);
           }
-          this.expandedAssessmentIds.add(assessmentId);
+          else
+          {
+            this.assessmentDetails[assessmentId] = response.result;
+            if(this.assessmentDetails[assessmentId].questions.length === 0){
+              this.message.emit("No Questions");
+            }
+            this.expandedAssessmentIds.add(assessmentId);
+            this.fetchedAssessmentIds.add(assessmentId);
+          }
         } else {
           console.error('Error fetching assessment details');
         }
@@ -103,6 +112,7 @@ export class QuestionBankComponent implements OnInit {
       }
     );
   }
+
   toggleQuestionSelection(question: Question, event: Event) {
     const inputElement = event.target as HTMLInputElement;
     if (inputElement && inputElement.checked !== undefined) {
@@ -115,6 +125,30 @@ export class QuestionBankComponent implements OnInit {
         }
       }
     }
+    console.log(this.selectedQuestions);
+  }
+
+  toggleAllQuestionSelection(assessmentId: any, event: Event) {
+    const inputElement = event.target as HTMLInputElement;
+    const questions = this.assessmentDetails[assessmentId]?.questions;
+
+    if (inputElement && inputElement.checked !== undefined) {
+        if (inputElement.checked) {
+            questions.forEach((question: any) => {
+                question.isSelected = true;
+                this.selectedQuestions.push(question);
+            });
+        } else {
+            questions.forEach((question: any) => {
+                question.isSelected = false;
+                const index = this.selectedQuestions.findIndex(q => q.id === question.id);
+                if (index > -1) {
+                    this.selectedQuestions.splice(index, 1);
+                }
+            });
+        }
+    }
+    console.log(this.selectedQuestions);
   }
 
   convertToQuestionFormat = (data: any[]): Question[] => {

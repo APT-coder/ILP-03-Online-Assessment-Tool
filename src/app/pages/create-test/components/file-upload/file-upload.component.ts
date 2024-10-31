@@ -182,7 +182,7 @@ export class FileUploadComponent {
   }
 
   loadExcelFile(): void {
-    const filePath = 'assets/Assessment Template.xlsx';
+    const filePath = 'assets/Assessment_Template.xlsx';
 
     this.http.get(filePath, { responseType: 'arraybuffer' }).subscribe(data => {
       const workbook = XLSX.read(new Uint8Array(data), { type: 'array' });
@@ -199,7 +199,7 @@ export class FileUploadComponent {
   downloadTemplate() {
     const isExcel = this.isExcel;
     const wordTemplateUrl = 'assets/Assessment_Template.docx';
-    const excelTemplateUrl = 'assets/Assessment Template.xlsx';
+    const excelTemplateUrl = 'assets/Assessment_Template.xlsx';
     const link = document.createElement('a');
     link.href = isExcel ? excelTemplateUrl : wordTemplateUrl;
     link.download = isExcel ? 'Assessment_Template.xlsx' : 'Assessment_Template.docx';

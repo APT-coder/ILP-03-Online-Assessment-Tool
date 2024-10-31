@@ -274,7 +274,7 @@ $background-color: #251d40;
   }
 
   .carousel-caption {
-    bottom: 5%;
+    bottom: -2%;
     left: 50%;
     width: 90%;
     height: 30%;
@@ -303,6 +303,11 @@ $background-color: #251d40;
 }
 .error-message{
   color: rgb(232, 97, 97);
+}
+
+.microsoft-login-icon{
+  width: 15rem;
+  transform: translateY(-9rem) translateX(6.5rem);
 }
 
 

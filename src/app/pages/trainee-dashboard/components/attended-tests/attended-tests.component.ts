@@ -13,6 +13,7 @@ import { CommonModule } from '@angular/common';
 export class AttendedTestsComponent {
   constructor(private api:ScheduledService){}
   scores:any;
+  sortOrder: number = -1;
   
   user = JSON.parse(localStorage.getItem('userDetails') as string);
 
